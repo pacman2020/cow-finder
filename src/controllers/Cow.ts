@@ -9,6 +9,14 @@ class CowController{
         return response.status(200).json(cows);
     }
 
+    async show(request: Request, response: Response){
+        const { id } = request.params;
+
+        const cow = await knex('cows').where('id', id).first();
+
+        return response.status(200).json(cow);
+    }
+
     async create(request: Request, response: Response){
         const { city, uf, address,  whatsapp, email, user_id } = request.body;
 
