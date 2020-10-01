@@ -8,5 +8,6 @@ const cowcontroller = new CowController();
 router.get('/cow', cowcontroller.index );
 router.get('/cow/:id', cowcontroller.show );
 router.post('/cow', cowcontroller.create );
+router.delete('/cow/:id', cowcontroller.delete );
 
 export default router;

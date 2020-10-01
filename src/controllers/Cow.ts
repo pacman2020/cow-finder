@@ -26,6 +26,16 @@ class CowController{
 
         return response.status(201).json(request.body);
     }
+
+    async delete(request: Request, response: Response){
+        const { id } = request.params;
+
+        //fazer verificao do usuario qu crio o registro
+
+        await knex('cows').where('id', id).delete();
+
+        return response.status(200).json({ message :'record successfully deleted' });
+    }
 }
 
 export default CowController;
