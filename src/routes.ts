@@ -2,6 +2,7 @@ import CowController from './controllers/Cow';
 import AccountController from './controllers/Accounts';
 import LoginController from './controllers/Login';
 import express from 'express';
+import auth from './middleware/authetication';
 
 const router = express.Router();
 
@@ -14,8 +15,8 @@ router.post('/login', loginController.create );
 
 router.get('/cow', cowcontroller.index );
 router.get('/cow/:id', cowcontroller.show );
-router.post('/cow', cowcontroller.create );
-router.put('/cow/:id', cowcontroller.update );
-router.delete('/cow/:id', cowcontroller.delete );
+router.post('/cow',auth, cowcontroller.create );
+router.put('/cow/:id',auth, cowcontroller.update );
+router.delete('/cow/:id',auth, cowcontroller.delete );
 
 export default router;

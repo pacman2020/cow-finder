@@ -24,7 +24,7 @@ class LoginController{
         }
 
         const token = jwt.sign({
-            id_user: exist_user.id,
+            id: exist_user.id,
             username: exist_user.username,
             email: exist_user.email
         }, secret.SECRET_KEY ,{expiresIn: "5h"})
