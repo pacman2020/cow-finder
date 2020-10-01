@@ -27,6 +27,18 @@ class CowController{
         return response.status(201).json(request.body);
     }
 
+    async update(request: Request, response: Response){
+        
+        const { id } = request.params;
+        const { city, uf, address,  whatsapp, email } = request.body;
+
+        await knex('cows').where('id',id).update({
+            image: 'fake-image' , city, uf, address, email, whatsapp
+        });
+
+        return response.status(201).json(request.body);
+    }
+
     async delete(request: Request, response: Response){
         const { id } = request.params;
 
