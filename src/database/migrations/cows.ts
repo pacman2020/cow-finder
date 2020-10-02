@@ -8,7 +8,7 @@ export async function up(knex:Knex) {
         db.string('uf',2).notNullable();
         db.string('address').notNullable();
         db.string('whatsapp').notNullable();
-        db.string('email').notNullable().unique();
+        db.string('email').notNullable();
         db.string('user_id')
             .notNullable()
             .references('id')

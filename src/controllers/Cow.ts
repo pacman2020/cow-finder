@@ -5,9 +5,8 @@ class CowController{
     async index(request: Request, response: Response){
 
         const cows = await knex('cows').select();
-        const id = request.userId;
 
-        return response.status(200).json({cows,id});
+        return response.status(200).json({cows});
     }
 
     async show(request: Request, response: Response){
@@ -19,19 +18,27 @@ class CowController{
     }
 
     async create(request: Request, response: Response){
-        const { city, uf, address,  whatsapp, email, user_id } = request.body;
+        const auth = request.userId;
+
+        const { city, uf, address,  whatsapp, email } = request.body;
 
         await knex('cows').insert({
-            image: 'fake-image' , city, uf, address, email, whatsapp, user_id
+            image: 'fake-image' , city, uf, address, email, whatsapp, user_id: auth
         });
 
         return response.status(201).json(request.body);
     }
 
     async update(request: Request, response: Response){
-        
+        const auth = request.userId;
         const { id } = request.params;
         const { city, uf, address,  whatsapp, email } = request.body;
+
+        let user_conferi = await knex('cows').where('id',id).first();
+
+        if (auth != user_conferi.user_id){
+            return response.status(201).json({message: 'voce não possui esse cow'});
+        }
 
         await knex('cows').where('id',id).update({
             image: 'fake-image' , city, uf, address, email, whatsapp
