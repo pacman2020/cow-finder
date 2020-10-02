@@ -2,19 +2,27 @@ import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import secret from '../config/env';
 
-export default (request: Request, response: Response, next: NextFunction) => {
+interface TokenPayload{
+    id: string;
+}
+
+export const auth = async (request: Request, response: Response, next: NextFunction) => {
+
+    const authHeader = String(request.headers.authorization);
+
+    if (!authHeader){
+        return response.status(401).json({ message: 'token required!' })
+    }
+    const toke = authHeader.split(' ')[1];
+    
     try {
-        const authHeader = String(request.headers.authorization);
-        const toke = authHeader.split(' ')[1];
 
-        jwt.verify(toke, secret.SECRET_KEY, (err, decode)=>{
-            if (err){
-                return response.status(401).json({ message: 'invalid token' })
-            }
-            //Object(decode);
+        const data = await jwt.verify(toke, secret.SECRET_KEY);
+        const { id } = data as TokenPayload;
 
-            return next();
-        });
+        request.userId = id;
+
+        return next();
         
     } catch (error) {
         return response.status(401).json({ message: 'authentication failure' })

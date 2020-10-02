@@ -5,8 +5,9 @@ class CowController{
     async index(request: Request, response: Response){
 
         const cows = await knex('cows').select();
+        const id = request.userId;
 
-        return response.status(200).json(cows);
+        return response.status(200).json({cows,id});
     }
 
     async show(request: Request, response: Response){

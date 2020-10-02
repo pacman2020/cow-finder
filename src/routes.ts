@@ -2,7 +2,7 @@ import CowController from './controllers/Cow';
 import AccountController from './controllers/Accounts';
 import LoginController from './controllers/Login';
 import express from 'express';
-import auth from './middleware/authetication';
+import { auth } from './middleware/authetication';
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ const loginController = new LoginController();
 router.post('/account', accountController.create );
 router.post('/login', loginController.create );
 
-router.get('/cow', cowcontroller.index );
+router.get('/cow',auth, cowcontroller.index );
 router.get('/cow/:id', cowcontroller.show );
 router.post('/cow',auth, cowcontroller.create );
 router.put('/cow/:id',auth, cowcontroller.update );
