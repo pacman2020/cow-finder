@@ -6,14 +6,9 @@ export async function seed(knex:Knex) {
     
     await knex('users').insert([
         {
-            username: 'geraldo',
-            email: 'geraldo@gmail.com',
+            username: 'admin',
+            email: 'admin@gmail.com',
             password: new_password
-        },
-        {
-            username: 'luidy',
-            email: 'luidy@gmail.com',
-            password: new_password
-        },
+        }
     ])
 }

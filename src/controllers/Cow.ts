@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 class CowController{
     async index(request: Request, response: Response){
 
-        const cows = await knex('cows').select();
+        let cows = await knex('cows').select();
 
         return response.status(200).json({cows});
     }
@@ -34,9 +34,9 @@ class CowController{
         const { id } = request.params;
         const { city, uf, address,  whatsapp, email } = request.body;
 
-        let user_conferi = await knex('cows').where('id',id).first();
+        let user_exists = await knex('cows').where('id',id).first();
 
-        if (auth != user_conferi.user_id){
+        if (auth != user_exists.user_id){
             return response.status(401).json({message: 'you do not own this cow'});
         }
 
@@ -51,9 +51,9 @@ class CowController{
         const { id } = request.params;
         const auth = request.userId;
 
-        let user_conferi = await knex('cows').where('id',id).first();
+        let user_exists = await knex('cows').where('id',id).first();
 
-        if (auth != user_conferi.user_id){
+        if (auth != user_exists.user_id){
             return response.status(401).json({message: 'you do not own this cow'});
         }
 

@@ -11,9 +11,9 @@ class AccountController{
             return response.status(200).json({ message: 'different password' });
         }
         
-        const exist_user = await knex('users').where('email', email).first();
+        let user_exists = await knex('users').where('email', email).first();
 
-        if(exist_user){
+        if(user_exists){
             return response.status(200).json({ message: 'user already exists in our system' });
         }
 
@@ -33,7 +33,7 @@ class AccountController{
             return response.status(404).json({message: 'user not exists in our system'});
         }
 
-        //deletando dos as vacas deste usuario
+        //deleting this user's cows
         await knex('cows').where('user_id', user_exists.id).delete();
         await knex('users').where('id', user_exists.id).delete();
 
