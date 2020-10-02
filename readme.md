@@ -18,11 +18,11 @@
 ### pra iniciar o projeto basta roda o comando "npm run dev"
 
 ### logo voce podera te acesso as rotas
-### http://localhot/3333/account - criar usuario : post
-### http://localhot/3333/account - deleta usuario : delete
+### http://localhost/3333/account - criar usuario : post
+### http://localhost/3333/account - deleta usuario : delete
 
-### http://localhot/3333/cow - criar cow :post
-### http://localhot/3333/cow - lista todos cow : get
-### http://localhot/3333/cow/id - busca pelo id cow : get
-### http://localhot/3333/cow/id - editar cow : put
-### http://localhot/3333/cow/id - deletar cow : delete
+### http://localhost/3333/cow - criar cow :post
+### http://localhost/3333/cow - lista todos cow : get
+### http://localhost/3333/cow/id - busca pelo id cow : get
+### http://localhost/3333/cow/id - editar cow : put
+### http://localhost/3333/cow/id - deletar cow : delete
