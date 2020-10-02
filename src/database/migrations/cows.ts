@@ -9,10 +9,14 @@ export async function up(knex:Knex) {
         db.string('address').notNullable();
         db.string('whatsapp').notNullable();
         db.string('email').notNullable();
-        db.string('user_id')
+
+        db.integer('user_id')
+            .references('users.id')
             .notNullable()
-            .references('id')
-            .inTable('user')
+            .onDelete('CASCADE');
+
+        db.timestamp('created_at').defaultTo(knex.fn.now());
+        db.timestamp('update_at').defaultTo(knex.fn.now());
     });
 }
 

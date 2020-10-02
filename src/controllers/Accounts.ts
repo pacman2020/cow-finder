@@ -24,6 +24,22 @@ class AccountController{
         return response.status(201).json({message: 'user created successfully'});
     }
 
+    async delete(request: Request, response: Response){
+        const auth = Number(request.userId);
+
+        let user_exists = await knex('users').where('id',auth).first();
+
+        if (!user_exists){
+            return response.status(404).json({message: 'user not exists in our system'});
+        }
+
+        //deletando dos as vacas deste usuario
+        await knex('cows').where('user_id', user_exists.id).delete();
+        await knex('users').where('id', user_exists.id).delete();
+
+        return response.status(200).json({message: 'user deleted successfully'});
+    }
+
 }
 
 export default AccountController;

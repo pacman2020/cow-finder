@@ -6,6 +6,9 @@ export async function up(knex:Knex) {
         db.string('username').notNullable();
         db.string('email').notNullable().unique();
         db.string('password').notNullable();
+
+        db.timestamp('created_at').defaultTo(knex.fn.now());
+        db.timestamp('update_at').defaultTo(knex.fn.now());
     });
 }
 
