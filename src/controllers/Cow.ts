@@ -37,7 +37,7 @@ class CowController{
         let user_conferi = await knex('cows').where('id',id).first();
 
         if (auth != user_conferi.user_id){
-            return response.status(201).json({message: 'voce não possui esse cow'});
+            return response.status(401).json({message: 'you do not own this cow'});
         }
 
         await knex('cows').where('id',id).update({
@@ -49,8 +49,13 @@ class CowController{
 
     async delete(request: Request, response: Response){
         const { id } = request.params;
+        const auth = request.userId;
 
-        //fazer verificao do usuario qu crio o registro
+        let user_conferi = await knex('cows').where('id',id).first();
+
+        if (auth != user_conferi.user_id){
+            return response.status(401).json({message: 'you do not own this cow'});
+        }
 
         await knex('cows').where('id', id).delete();
 
